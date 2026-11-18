@@ -1,4 +1,4 @@
-# SPSS Alternative
+# OpenSPSS
 
 A work-in-progress statistical computing application. The repository currently contains a Vue 3 web scaffold and a small Rust/WebAssembly engine with a Comlink worker bridge. The application UI is still the default Vue/Vite starter screen; the statistical worker is not yet connected to a user-facing analysis workflow.
 
