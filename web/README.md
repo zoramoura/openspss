@@ -1,5 +1,17 @@
-# Vue 3 + TypeScript + Vite
+# Web application
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+The web client is a Vue 3, TypeScript, and Vite scaffold. The current UI still displays the Vue/Vite starter screen. A Pinia store and Comlink Web Worker are available for calling the Rust/WebAssembly descriptive-statistics engine, but are not yet connected to a user-facing workflow.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+For requirements, setup, and repository status, see the [project README](../README.md).
+
+Run the development server from the repository root with:
+
+```bash
+npm run dev
+```
+
+Build the WASM engine and web client from the repository root with:
+
+```bash
+npm run build
+```
