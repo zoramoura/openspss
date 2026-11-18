@@ -1,5 +1,5 @@
 {
-  "name": "spss-alternative",
+  "name": "openspss",
   "private": true,
   "scripts": {
     "dev": "npm --prefix web run dev --",
