@@ -1,5 +1,9 @@
 use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
+use serde_json;
+
+mod sav;
+use sav::{parse_sav, parse_zsav};
 
 #[derive(Serialize, Deserialize)]
 pub struct DescriptivesResult {
@@ -11,7 +15,7 @@ pub struct DescriptivesResult {
     pub max: f64,
 }
 
-#[wasm_bindgen] 
+#[wasm_bindgen]
 pub fn compute_descriptives(data: &[f64]) -> Result<JsValue, JsValue> {
     if data.is_empty() {
         return Err(JsValue::from_str("Data is empty"));
@@ -38,4 +42,22 @@ pub fn compute_descriptives(data: &[f64]) -> Result<JsValue, JsValue> {
     };
 
     serde_wasm_bindgen::to_value(&result).map_err(|e| JsValue::from_str(&e.to_string()))
+}
+
+/// Read an SPSS .sav file. Returns a JSON-serialised [`DatasetDto`] string.
+#[wasm_bindgen]
+pub fn read_sav(bytes: &[u8]) -> Result<String, JsValue> {
+    parse_sav(bytes)
+        .map(|ds| serde_json::to_string(&ds))
+        .map_err(|e| JsValue::from_str(&e))?
+        .map_err(|e| JsValue::from_str(&e.to_string()))
+}
+
+/// Read an SPSS .zsav (deflate-compressed .sav) file. Returns a JSON-serialised
+/// [`DatasetDto`] string.
+#[wasm_bindgen]
+pub fn read_zsav(bytes: &[u8]) -> Result<String, JsValue> {
+    parse_zsav(bytes)
+        .and_then(|ds| serde_json::to_string(&ds).map_err(|e| e.to_string()))
+        .map_err(|e| JsValue::from_str(&e))
 }
